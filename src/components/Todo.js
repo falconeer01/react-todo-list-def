@@ -6,7 +6,7 @@ function Todo() {
         {
             id: 1,
             name: 'Learn JavaScript',
-            status: true
+            status: false
         },
         {
             id: 2,
@@ -32,6 +32,23 @@ function Todo() {
         setListe(liste.map((el) => 
             el.id === id ? {...el, status: !el.status} : el
             ))
+      }
+
+      const addLiElement = () => {
+        liste.map((item) => 
+            <li className={item.status === true ? 'completed' : 'active'}
+                key={item.id}
+                >
+                <div className='view'>
+                    <input className='toggle'
+                            type='checkbox'
+                            onClick={() => markAsCompleted(item.id)}
+                    />
+                    <label>{item.name}</label>
+                    <button className='destroy'></button>
+                </div>
+            </li>
+        )
       }
 
       const clearCompleted = () => {
@@ -71,23 +88,7 @@ function Todo() {
             <label htmlFor='toggle-all'>
                 Mark all as complete
             </label>
-            <ul className="todo-list" id='main-ul'>
-                {
-                    liste.map((item) => 
-                        <li className={item.status === true ? 'completed' : 'active'}
-                            key={item.id}
-                            onClick={() => markAsCompleted(item.id)}>
-                            <div className='view'>
-                                <input className='toggle'
-                                        type='checkbox'  
-                                />
-                                <label>{item.name}</label>
-                                <button className='destroy'></button>
-                            </div>
-                        </li>
-                    )
-                }
-            </ul>
+            <ul className="todo-list" id='main-ul'>{addLiElement()}</ul>
         </section>
     </div>
             <div>
